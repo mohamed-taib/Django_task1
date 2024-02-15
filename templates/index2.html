@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        p {
+            margin-top: 10px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add Numbers</h2>
+    <form method="post" action="{% url 'n_add_numbers2' %}">
+        {% csrf_token %}
+        <label for="num1">Number 1:</label>
+        <input type="number" name="num1" required>
+        <br>
+        <label for="num2">Number 2:</label>
+        <input type="number" name="num2" required>
+        <br>
+        <button type="submit">Add</button>
+    </form>
+    {% if result %}
+        <p>Sum: {{ result }}</p>
+    {% endif %}
+
+    {% if history %}
+    <h2>Historique des Calculs</h2>
+    <ul>
+        {% for calculation in history %}
+            <li>{{ calculation.num1 }} + {{ calculation.num2 }} = {{ calculation.result }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

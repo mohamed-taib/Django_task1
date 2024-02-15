@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des étudiants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ajouter un nouvel étudiant</h2>
+        <form id="studentForm" method="post" action="{% url 'n_add_etd' %}">
+            {% csrf_token %}
+            <label for="firstName">Prénom:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Nom:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="studentId">Matricule:</label>
+            <input type="text" id="studentId" name="studentId" required>
+
+            <input type="submit" value="Ajouter">
+        </form>
+        
+        
+        <h2>Liste des étudiants</h2>
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>ID Étudiant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stds in std %}
+                <tr>
+                    <td>{{ stds.first_name }}</td>
+                    <td>{{ stds.last_name }}</td>
+                    <td>{{ stds.student_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>       
+       
+    </div>
+</body>
+</html>
